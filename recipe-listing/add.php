@@ -1,5 +1,7 @@
 <?php
 
+    include("config/db_connect.php");
+
     $email = htmlspecialchars($_POST['email']);
     $title = htmlspecialchars($_POST['title']);
     $ingredients = htmlspecialchars($_POST['ingredients']);
@@ -35,39 +37,33 @@
         global $ingredients;
         if (isset($_POST['submit'])) {
             if ($ingredients) {
-                if (preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
+                if (preg_match('/^([a-zA-Z0-9\s]+)(,\s*[a-zA-Z0-9\s]*)*$/', $ingredients)) {
                     return;
                 }
                 return("Ingredients must be a comma separated list.");
             }
-            return("Atleast 1 ingridient is required.");
+            return("Atleast 1 ingredient is required.");
         }
     }
 
     if (isset($_POST['submit']) && !validateEmail() && !validateTitle() && !validateIngredients()) {
         echo("form has no errors");
-        header('Location: index.php');
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $title = mysqli_real_escape_string($conn, $_POST['title']);
+        $ingredients = mysqli_real_escape_string($conn, $_POST['ingredients']);
+        $sql = "INSERT INTO recipes(title, email, ingredients) VALUES('$title', '$email', '$ingredients')";
+        // $sql = "INSERT INTO pizzas(title,email,ingredients) VALUES('$title','$email','$ingredients')";
+        if (mysqli_query($conn, $sql)) {
+            header('Location: index.php');
+        } else {
+            echo('query error: ' . mysqli_error($conn));
+        }
     }
-    // if (isset($_POST['submit'])) {
-    //     //check email
-    //     $email = htmlspecialchars($_POST['email']);
-    //     echo(validateEmail(($email)));
-    //     echo("<br/>");
-
-    //     //check title
-    //     $title = htmlspecialchars($_POST['title']);
-    //     echo(validateTitle(($title)));
-    //     echo("<br/>");
-
-    //     //check ingredients
-    //     $ingredients = htmlspecialchars($_POST['ingredients']);
-    //     echo(validateIngredients(($ingredients)));
-    //     echo("<br/>");
-    // }
-
-
 
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
     <?php include("templates/header.html"); ?>
