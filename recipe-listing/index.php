@@ -28,6 +28,7 @@
         <?php foreach ($recipes as $recipe): ?>
             <div class="col s6 md-3">
                 <div class="card z-depth-0">
+                    <img src="images/pizza.svg" class="pizza">
                     <div class="card-content center">
                         <h5><?php echo(htmlspecialchars($recipe['title'])); ?></h5>
                         <ul class="grey-text">
@@ -37,7 +38,7 @@
                         </ul>
                     </div>
                     <div class="card-action right-align">
-                        <a href="#" class="brand-text">Read more >>></a>
+                        <a href="details.php?id=<?php echo $recipe['id']; ?>" class="brand-text">Read more >>></a>
                     </div>
                 </div>
             </div>
