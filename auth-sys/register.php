@@ -12,15 +12,12 @@
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-
-
             $insert = $conn->prepare("INSERT INTO users (email, username, pass) VALUES(:email, :username, :pass)");
             $insert->execute([
                 ':email' => $email,
                 ':username' => $username,
                 ':pass' => password_hash($password, PASSWORD_DEFAULT),
             ]);
-
         }
     }
 
