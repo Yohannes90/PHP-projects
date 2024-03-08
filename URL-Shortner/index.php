@@ -28,20 +28,6 @@ require "./conn.php";
 <head>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<style>
-		body {
-			/* overflow: hidden; */
-		}
-
-		/* .margin {
-			margin-top: 100px;
-		}
-
-		.head-margin {
-			margin-top: 160px;
-			margin-bottom: -80px
-		} */
-	</style>
 	<title>URL Shortner</title>
 </head>
 
@@ -50,14 +36,14 @@ require "./conn.php";
 	<div class="conatiner mb-5">
 		<div class="row text-center justify-content-center">
 			<div class="col-md-6">
-				<h3 class="text-center head-margin bg-success ">URL Shortner</h3>
+				<h3 class="text-center head-margin bg-primary text-white p-3">URL Shortner</h3>
 
 				<form class="card p-2 margin" method="POST" action="index.php">
 					<div class="input-group">
 						<input type="text" name="url" class="form-control mt-2" placeholder="Enter URL to shorten e.g 'www.yoursite.com/?/post/2021/12/08/$5982-!#_ref;di(@%'">
 					</div>
-					<div class="input-group-append m-4">
-						<button type="submit" name="submit" class="btn btn-success w-100">Submit</button>
+					<div class="input-group-append">
+						<button type="submit" name="submit" class="btn btn-success mt-2 pr-4 pl-4 p-2">Submit</button>
 					</div>
 				</form>
 				<table class="table table-striped border">
@@ -72,10 +58,10 @@ require "./conn.php";
 					<tbody>
 						<?php foreach ($rows as $row) : ?>
 							<tr>
-								<th scope="row"><?php echo $row->id ?></th>
-								<td><?php echo $row->url ?></td>
-								<td><?php echo "$row->short_url" ?></td>
-								<td><?php echo $row->clicks ?></td>
+								<th scope="row"><?php echo $row->id; ?></th>
+								<td><?php echo $row->url; ?></td>
+								<td><a href="http://localhost/PHPprojects/PHP-projects/URL-Shortner/url.php?id=<?php echo $row->id; ?>" target="_blank">http://localhost/URL-Shortner/<?php echo $row->id; ?></a></td>
+								<td><?php echo $row->clicks; ?></td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
